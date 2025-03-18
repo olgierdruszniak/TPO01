@@ -11,6 +11,14 @@ public class FileService {
     }
 
     public void loadEntries(EntryRepository repository) {
+        File file = new File(filename);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.err.println("Error creating flashcards.csv: " + e.getMessage());
+            }
+        }
         try(BufferedReader reader = new BufferedReader(new FileReader(filename))){
             String line;
             while((line = reader.readLine()) != null) {

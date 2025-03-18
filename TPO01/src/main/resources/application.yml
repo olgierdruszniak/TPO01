@@ -1,4 +1,8 @@
 spring:
+  banner:
+    location: logo-app
+    charset: UTF-8
+  name: TPO01
   profiles:
     active: default
 

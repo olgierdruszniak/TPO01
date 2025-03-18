@@ -8,10 +8,12 @@ import java.util.Scanner;
 public class FlashcardsController {
     private EntryRepository repository;
     private FileService fileService;
+    private Format format;
 
-    public FlashcardsController(EntryRepository repository, FileService fileService) {
+    public FlashcardsController(EntryRepository repository, FileService fileService, Format format) {
         this.repository = repository;
         this.fileService = fileService;
+        this.format = format;
     }
 
     public void initialize() {
@@ -35,7 +37,7 @@ public class FlashcardsController {
         }
         System.out.println("All flashcards found: ");
         for(Entry entry : entries){
-            System.out.println("Polish: "+entry.getPolish()+" | English: "+entry.getEnglish()+" | German: "+entry.getGerman());
+            System.out.println("Polish: "+format.format(entry.getPolish())+" | English: "+format.format(entry.getEnglish())+" | German: "+format.format(entry.getGerman()));
         }
     }
 
@@ -46,7 +48,7 @@ public class FlashcardsController {
             return;
         }
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Word to translation: "+randomEntry.getPolish());
+        System.out.println("Word to translation: "+format.format(randomEntry.getPolish()));
 
         System.out.print("English: ");
         String english = scanner.nextLine();
@@ -54,13 +56,13 @@ public class FlashcardsController {
         System.out.print("German: ");
         String german = scanner.nextLine();
 
-        System.out.println("Correct answer: "+randomEntry.getEnglish()+" | "+randomEntry.getEnglish()+" | "+randomEntry.getGerman());
+        System.out.println("Correct answer: "+randomEntry.getPolish()+" | "+randomEntry.getEnglish()+" | "+randomEntry.getGerman());
         System.out.println("Result:");
 
         boolean englishCorrect = randomEntry.getEnglish().equalsIgnoreCase(english);
         System.out.println("English: "+(englishCorrect?"Correct":"Incorrect. The answer is: "+randomEntry.getEnglish()));
 
         boolean germanCorrect = randomEntry.getGerman().equalsIgnoreCase(german);
-        System.out.println("German: "+(englishCorrect?"Correct":"Incorrect. The answer is: "+randomEntry.getGerman()));
+        System.out.println("German: "+(germanCorrect?"Correct":"Incorrect. The answer is: "+randomEntry.getGerman()));
     }
 }

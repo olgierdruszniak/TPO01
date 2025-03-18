@@ -35,7 +35,7 @@ public class FlashcardsApp {
                     System.out.print("Enter english word: ");
                     String english = scanner.nextLine();
 
-                    System.out.println("Enter german word: ");
+                    System.out.print("Enter german word: ");
                     String german = scanner.nextLine();
 
                     controller.addWord(polish,english,german);
